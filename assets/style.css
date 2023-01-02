@@ -1,0 +1,93 @@
+*{margin:0; padding:0; outline:none;}
+@media(prefers-color-scheme:dark) {
+    * {
+        color: white;
+    }
+    body {
+        background-color: rgb(43, 50, 55);
+    }
+    #menu {
+        background-color: rgb(32, 32, 32);
+    }
+    aside {
+        background-color: rgb(68, 78, 85);
+    }
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+}
+
+#menu, aside, #tool-bar {
+    position: fixed;
+}
+
+#menu {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    top: 0;
+}
+#menu > button {
+    height: 30px;
+    padding: 5px;
+}
+#menu > button:hover {
+    background-color: #909090;
+}
+#menu > button:active {
+    background-color: #505050;
+}
+
+/* main */
+main {
+    margin-top: 30px;
+}
+
+aside {
+    width: 150px;
+    height: 100%;
+    top: 30px;
+}
+
+#editor {
+    margin-left: 150px;
+}
+
+/* tool-bar */
+#tool-bar {
+    display: flex;
+    width: 100%;
+    height: 30px;
+    background-color: dimgray;
+    top: 30px;
+}
+#tool-bar > button {
+    width: 30px;
+    cursor: pointer;
+}
+
+#editable-area {
+    padding: 20px;
+    font-size: 16px;
+    margin-top: 60px;
+    margin-bottom: 22px;
+}
+
+#status-bar {
+    position: fixed;
+    background-color: rgb(0, 122, 204);
+    height: 22px;
+    width: 100%;
+    bottom: 0;
+    font-size: 12px;
+    line-height: 22px;
+    text-align: center;
+}
