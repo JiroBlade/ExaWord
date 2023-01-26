@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div data-tauri-drag-region id="titlebar">
+            <div id="menu">
+                <div>File</div>
+                <div onclick="saveFile()">Save File</div>
+            </div>
+
+            <div id="title">[placeholder title]</div>
+            
+            <div id="window-controls">
+                <div>
+                    <img src="https://api.iconify.design/mdi:window-minimize.svg"/>
+                </div>
+                <div>
+                    <img src="https://api.iconify.design/mdi:window-maximize.svg"/>
+                </div>
+                <div id="titlebar-close">
+                    <img src="https://api.iconify.design/mdi:close.svg"/>
+                </div>
+            </div>
+        </div>
+        
+
+        <div contenteditable spellcheck="false" id="text-input">
+            <p>ABC</p>
+            <p>EFG</p>
+        </div>
+        <script src="js/text-input.js"></script>
+        <script src="js/file.js"></script>
+    </body>
+</html>

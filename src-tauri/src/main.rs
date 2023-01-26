@@ -3,89 +3,44 @@
   windows_subsystem = "windows"
 )]
 
-use std::{fs::{File, write}, io::{Read, BufWriter, Write}, path::PathBuf};
-use tauri::api::dialog::blocking::FileDialogBuilder;
-//use zip::ZipArchive;
-use serde::{Serialize, Deserialize};
-use serde_json::{Value as JsonValue, from_reader};
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct Project {
-  paragraphs: Vec<String>
-}
+use std::{fs::File, io::Write};
+use tauri::{api::dialog::blocking::FileDialogBuilder, Manager};
+use windows::{core::*, Data::Xml::Dom::*, Foundation::*, Storage::*};
 
 fn main() {
   tauri::Builder::default()
-    .invoke_handler(tauri::generate_handler![save_json, open_json, read_json, save_xml, open_xml])
+    .setup(|app| {
+      let main_window = app.get_window("main").unwrap();
+      main_window.set_decorations(false).unwrap();
+      Ok(())
+    })
+    .invoke_handler(tauri::generate_handler![save_file])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }
 
 #[tauri::command(async)]
-async fn save_json(win: tauri::Window, path: PathBuf, data: Vec<String>) {
-  match path.is_file() {
-    false => {
-      let file_path = FileDialogBuilder::new()
-        .set_parent(&win)
-        .save_file().unwrap_or_default();
+async fn save_file(win: tauri::Window, contents: Vec<String>) {
+  let filepath = FileDialogBuilder::new()
+    .set_parent(&win)
+    .add_filter("Word Document", &["xml"])
+    .save_file().unwrap_or_default();
 
-      if file_path.is_file() {
-        let mut file = File::create(file_path).unwrap();
-        let project = Project {
-          paragraphs: data
-        };
+  if filepath.capacity() != 0 {
+    let file = File::create(filepath).unwrap();
 
-        let buffer = serde_json::to_string_pretty(&project).unwrap();
-        file.write_all(buffer.as_bytes()).unwrap();
-      }
-    },
-    true => {
-      let mut file = File::create(path).unwrap();
-      let project = Project {
-        paragraphs: data
-      };
-      
-      let buffer = serde_json::to_string_pretty(&project).unwrap();
-      file.write_all(buffer.as_bytes()).unwrap();
-    }
+    xml(file).unwrap();
   }
 }
 
-#[tauri::command(async)]
-async fn open_json(win: tauri::Window) -> PathBuf {
-  let file_path = FileDialogBuilder::new()
-    .set_parent(&win)
-    .add_filter("JSON File", &["json"])
-    .pick_file().unwrap_or_default();
+fn xml<W: Write>(mut w: W) -> Result<()> {
+  let doc = XmlDocument::new()?;
+  let root = doc.CreateElement(h!("root"))?;
+  
+  
+  
+  
+  w.write_all(doc.GetXml().unwrap().to_string().as_bytes()).unwrap();
 
-  file_path
-}
-
-#[tauri::command]
-fn read_json(path: PathBuf) -> Project {
-  let file = File::open(path).unwrap();
-  let project: Project = from_reader(file).unwrap();
-  project
-}
-
-#[tauri::command(async)]
-async fn save_xml(path: PathBuf) {
-  println!("{:?}", path);
-}
-
-#[tauri::command(async)]
-async fn open_xml(win: tauri::Window) -> (PathBuf, String) {
-  let file_path = FileDialogBuilder::new()
-    .set_parent(&win)
-    .add_filter("XML File", &["xml"])
-    .pick_file().unwrap_or_default();
-
-  let mut buffer = String::new();
-
-  if file_path.is_file() {
-    let mut file = File::open(&file_path).unwrap();
-    file.read_to_string(&mut buffer).unwrap();
-  }
-
-  (file_path, buffer)
+  Ok(())
 }
