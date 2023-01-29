@@ -6,12 +6,22 @@
     <body>
         <div data-tauri-drag-region id="titlebar">
             <div id="menu">
-                <div>File</div>
-                <div onclick="saveFile()">Save File</div>
+                <a id="icon"></a>
+                <div class="menu-button">
+                    <div class="menu-button-name">File</div>
+                    <div class="submenu" style="display: none;">
+                        <div>Save</div>
+                        <div onclick="saveFile()">Save as...</div>
+                    </div>
+                </div>
+                <div class="menu-button">
+                    <div class="menu-button-name">Help</div>
+                    <div class="submenu" style="display: none;">
+                        <div>About</div>
+                    </div>
+                </div>
             </div>
-
-            <div id="title">[placeholder title]</div>
-            
+            <div id="window-title">[placeholder title]</div>
             <div id="window-controls">
                 <div>
                     <img src="https://api.iconify.design/mdi:window-minimize.svg"/>
@@ -30,6 +40,7 @@
             <p>ABC</p>
             <p>EFG</p>
         </div>
+        <script src="js/window.js"></script>
         <script src="js/text-input.js"></script>
         <script src="js/file.js"></script>
     </body>

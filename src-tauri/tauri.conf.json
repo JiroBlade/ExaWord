@@ -65,7 +65,8 @@
         "height": 600,
         "resizable": true,
         "title": "Dashboard",
-        "width": 800
+        "width": 800,
+        "decorations": false
       }
     ]
   }

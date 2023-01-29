@@ -6,12 +6,13 @@
 use std::{fs::File, io::Write};
 use tauri::{api::dialog::blocking::FileDialogBuilder, Manager};
 use windows::{core::*, Data::Xml::Dom::*, Foundation::*, Storage::*};
+use window_shadows::set_shadow;
 
 fn main() {
   tauri::Builder::default()
     .setup(|app| {
       let main_window = app.get_window("main").unwrap();
-      main_window.set_decorations(false).unwrap();
+      set_shadow(&main_window, true).unwrap();
       Ok(())
     })
     .invoke_handler(tauri::generate_handler![save_file])
