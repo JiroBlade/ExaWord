@@ -23,11 +23,8 @@
     "bundle": {
       "active": true,
       "category": "DeveloperTool",
-      "copyright": "",
-      "deb": {
-        "depends": []
-      },
-      "externalBin": [],
+      "publisher": "JiroBlade",
+      "copyright": "JiroBlade",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -35,8 +32,15 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
-      "longDescription": "",
+      "identifier": "com.exaword.app",
+      "longDescription": "Minimalist rich text editor",
+      "shortDescription": "Minimalist rich text editor",
+      "externalBin": [],
+      "resources": [],
+      "targets": "all",
+      "deb": {
+        "depends": []
+      },
       "macOS": {
         "entitlements": null,
         "exceptionDomain": "",
@@ -44,29 +48,39 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": [],
-      "shortDescription": "",
-      "targets": "all",
+      "appimage": {
+        "bundleMediaFramework": true
+      },
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
-        "timestampUrl": ""
+        "timestampUrl": "",
+        "wix": {
+          "language": "en-US"
+        }
       }
     },
     "security": {
       "csp": null
     },
     "updater": {
-      "active": false
+      "active": false,
+      "dialog": true,
+      "endpoints": [],
+      "windows": {
+        "installMode": "basicUi"
+      },
+      "pubkey": ""
     },
     "windows": [
       {
+        "title": "ExaWord",
+        "url": "index.html",
         "fullscreen": false,
-        "height": 600,
+        "focus": true,
         "resizable": true,
-        "title": "Dashboard",
-        "width": 800,
-        "decorations": false
+        "decorations": false,
+        "center": true
       }
     ]
   }

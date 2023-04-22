@@ -1,13 +1,12 @@
 [package]
-name = "app"
+name = "exaword"
 version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
-license = ""
-repository = ""
-default-run = "app"
+description = "Minimalist rich text editor"
+authors = ["JiroBlade"]
+license = "MIT"
+repository = "https://github.com/JiroBlade/ExaWord"
 edition = "2021"
-rust-version = "1.66.1"
+publish = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -20,6 +19,8 @@ serde = { version = "1.0", features = ["derive"] }
 tauri = { version = "1.2.4", features = ["dialog-all", "window-all"] }
 window-shadows = "0.2.1"
 winit = "0.27.5"
+tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
+tauri-plugin-window-state = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
 
 [dependencies.windows]
 version = "0.44.0"
