@@ -41,7 +41,7 @@ async fn save_file(win: tauri::Window, contents: Vec<String>) {
   let filepath = FileDialogBuilder::new()
     .set_parent(&win)
     .add_filter("Text Document", &["txt"])
-    .add_filter("Word Document", &["xml"])
+    .add_filter("XML Document", &["xml"])
     .add_filter("Markdown Document", &["md"])
     .set_file_name(default_filename.unwrap_or_default())
     .save_file()
