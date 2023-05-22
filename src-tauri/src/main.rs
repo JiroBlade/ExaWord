@@ -1,11 +1,8 @@
-#![cfg_attr(
-  all(not(debug_assertions), target_os = "windows"),
-  windows_subsystem = "windows"
-)]
+// Prevents additional console window on Windows in release, DO NOT REMOVE!!
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use std::{fs::File, io::Write};
+use std::{fs::File, io::Read};
 use tauri::{api::dialog::blocking::FileDialogBuilder, Manager};
-use windows::{core::*, Data::Xml::Dom::*, Foundation::*, Storage::*};
 use window_shadows::set_shadow;
 
 fn main() {
@@ -15,33 +12,26 @@ fn main() {
       set_shadow(&main_window, true).unwrap();
       Ok(())
     })
-    .invoke_handler(tauri::generate_handler![save_file])
+    .invoke_handler(tauri::generate_handler![open_file])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }
 
 #[tauri::command(async)]
-async fn save_file(win: tauri::Window, contents: Vec<String>) {
+async fn open_file(win: tauri::Window) -> (String, bool) {
   let filepath = FileDialogBuilder::new()
     .set_parent(&win)
-    .add_filter("Word Document", &["xml"])
-    .save_file().unwrap_or_default();
+    .add_filter("XML file", &["xml"])
+    .pick_file().unwrap_or_default();
 
-  if filepath.capacity() != 0 {
-    let file = File::create(filepath).unwrap();
+  let mut buffer = String::new();
+  let mut file_opened = false;
 
-    xml(file).unwrap();
+  if filepath.is_file() {
+    let mut file = File::open(filepath).unwrap();
+    
+    file.read_to_string(&mut buffer).unwrap();
+    file_opened = true;
   }
-}
-
-fn xml<W: Write>(mut w: W) -> Result<()> {
-  let doc = XmlDocument::new()?;
-  let root = doc.CreateElement(h!("root"))?;
-  
-  
-  
-  
-  w.write_all(doc.GetXml().unwrap().to_string().as_bytes()).unwrap();
-
-  Ok(())
+  (buffer, file_opened)
 }

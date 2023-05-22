@@ -2,12 +2,12 @@
   "build": {
     "beforeBuildCommand": "",
     "beforeDevCommand": "",
-    "devPath": "../src",
-    "distDir": "../src",
+    "devPath": "../resource",
+    "distDir": "../resource",
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "ExaWord",
+    "productName": "nexus",
     "version": "0.1.0"
   },
   "tauri": {
@@ -17,7 +17,12 @@
         "all": true
       },
       "window": {
-        "all": true
+        "close": true,
+        "maximize": true,
+        "minimize": true,
+        "unmaximize": true,
+        "unminimize": true,
+        "startDragging": true
       }
     },
     "bundle": {
@@ -61,12 +66,12 @@
     },
     "windows": [
       {
+        "decorations": false,
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "Dashboard",
-        "width": 800,
-        "decorations": false
+        "title": "nexus",
+        "width": 800
       }
     ]
   }
