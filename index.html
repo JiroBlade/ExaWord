@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div data-tauri-drag-region id="titlebar">
+            <div id="menu-buttons">
+                <button onclick="openFile()">Open</button>
+            </div>
+            
+            <div data-tauri-drag-region id="window-title">Title</div>
+
+            <div id="window-controls">
+                <div onclick="appWindow.minimize()">
+                    <img src="https://api.iconify.design/mdi:window-minimize.svg">
+                </div>
+                <div onclick="appWindow.toggleMaximize()">
+                    <img src="https://api.iconify.design/mdi:window-maximize.svg">
+                </div>
+                <div onclick="appWindow.close()">
+                    <img src="https://api.iconify.design/mdi:close.svg">
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <div id="toolbar">
+                <button>B</button>
+                <button>I</button>
+                <button>U</button>
+            </div>
+            <div id="editor-container">
+                <div id="editor" contenteditable spellcheck="false"  autofocus>
+                    <p></p>
+                </div>
+            </div>
+        </main>
+
+        <script src="editor.js"></script>
+    </body>
+</html>
