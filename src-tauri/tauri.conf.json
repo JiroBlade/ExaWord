@@ -32,7 +32,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.exaword.app",
+      "identifier": "ExaWord",
       "longDescription": "Minimalist rich text editor",
       "shortDescription": "Minimalist rich text editor",
       "externalBin": [],
